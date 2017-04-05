@@ -52,7 +52,7 @@ wemo:
   static:   
     - !secret wemo1_ip
 
-#Media Player
+# Media Player
 media_player:
   - platform: plex
   - platform: cast
