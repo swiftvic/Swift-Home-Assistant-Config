@@ -1,0 +1,19 @@
+- platform: asuswrt
+  host: !secret router_IP
+  username: !secret router_login
+  ssh_key: !secret router_sshkey_path
+  interval_seconds: 10
+  consider_home: 180
+  track_new_devices: yes
+- platform: owntracks
+  max_gps_accuracy: 200
+  waypoints: True
+  waypoint_whitelist:
+   - vauyeung
+#- platform: nmap_tracker
+#  hosts: !secret nmap_hosts
+#  home_interval: 2
+#  exclude:
+#   - !secret exclude_rp
+#  track_new_devices: no
+

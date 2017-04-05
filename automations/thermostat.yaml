@@ -1,0 +1,70 @@
+### Set Ecobee to Home when someone comes home ###
+
+- alias: 'Home set Ecobee to Home' 
+  hide_entity: false
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: group.family_card
+      state: 'home'
+    - platform: state
+      entity_id: group.family_card
+      from: 'not_home'
+      to: 'home'
+  condition:
+    - condition: state
+      entity_id: group.family_card
+      state: 'home'
+    - condition: time
+      after: '08:00:00'
+      before: '23:00:00'
+  action:
+    - service: climate.set_hold_mode
+      data:
+        entity_id: climate.ecobee
+        hold_mode: 'home'
+    - service: notify.hass_vicop3
+      data_template:
+        title: "Ecobee Status"
+        message: 'Ecobee was changed to home hold at {{now().strftime("%Y-%m-%d-%H:%M:%S")}}.'
+      data:
+        data:
+          tag: 'Notification-Ecobee-Home'
+
+### Set Ecobee to Away mode if no one is home ###
+
+- alias: 'Not home set Ecobee Away' 
+  hide_entity: false
+  initial_state: 'on'
+  trigger:
+#    - platform: state
+#      entity_id: device_tracker.victorop3
+#      state: 'home'
+    - platform: state
+      entity_id: group.family_card
+      from: 'home'
+      to: 'not_home'
+    - platform: state
+      entity_id: group.occupancy_card
+      state: 'off'
+    - platform: time
+      after: '17:30:00'
+  condition:
+    - condition: state
+      entity_id: group.family_card
+      state: 'not_home'
+    - condition: time
+      after: '8:30:00'
+      before: '23:00:00'
+  action:
+    - service: climate.set_hold_mode
+      data:
+        entity_id: climate.ecobee
+        hold_mode: 'away'
+    - service: notify.hass_vicop3
+      data_template:
+        title: "Ecobee Status"
+        message: 'Ecobee was changed to away hold at {{now().strftime("%Y-%m-%d-%H:%M:%S")}}.'
+      data:
+        data:
+          tag: 'Notification-Ecobee-Away'

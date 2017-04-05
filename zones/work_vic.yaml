@@ -1,0 +1,6 @@
+name: !secret workname_vic
+latitude: !secret latitude_work_vic
+longitude: !secret longitude_work_vic
+radius: 250
+icon: mdi:worker
+

@@ -1,0 +1,71 @@
+- alias: 'Turn on WeMo'
+  hide_entity: false
+  initial_state: 'off'
+  trigger:
+    # Prefix the first line of each trigger configuration
+    # with a '-' to enter multiple
+    - platform: state
+      entity_id: device_tracker.victorop3
+      state: 'home'
+    - platform: time
+      after: '22:42'
+  condition:
+    # Prefix the first line of each condition configuration
+    # with a '-'' to enter multiple
+#    - condition: state
+#      entity_id: device_tracker.victorop3
+#      state: 'home'
+    - condition: time
+      after: '08:00:00'
+      before: '00:00:00'
+  action:
+    - service: switch.turn_on
+      entity_id: switch.wemo_kitchen
+    - service: notify.hass_vicwin8
+      data_template:
+        title: "WeMo Turned On"
+        message: 'WeMo Triggered {{now.now().strftime("%Y%m%d-%H%M%S")}}'
+      data:
+        data:
+          tag: 'Notification-Sensor'
+
+- alias: 'Turn off WeMo'
+  hide_entity: false
+  initial_state: 'off'
+  trigger:
+    # Prefix the first line of each trigger configuration
+    # with a '-' to enter multiple
+    - platform: state
+      entity_id: device_tracker.victorop3
+      state: 'not_home'
+  condition:
+    # Prefix the first line of each condition configuration
+    # with a '-'' to enter multiple
+    - condition: state
+      entity_id: device_tracker.victorop3
+      state: 'not_home'
+    - condition: time
+      after: '16:00:00'
+      before: '23:00:00'
+  action:
+    service: switch.turn_off
+    entity_id: switch.wemo_kitchen
+
+- alias: 'Test Notify'
+  hide_entity: false
+  initial_state: 'on'
+  trigger:
+    - platform: state
+      entity_id: input_boolean.notify_test
+      state: 'on'
+  action:
+#    - service: switch.turn_on
+#      entity_id: switch.wemo_kitchen
+    - service: notify.hass_vicop3
+      data_template:
+        title: "Test Notify"
+        message: 'Notify boolean triggered {{now().strftime("%Y-%m-%d-%H:%M:%S")}}'
+      data:
+        data:
+          tag: 'Notification-Sensor'
+

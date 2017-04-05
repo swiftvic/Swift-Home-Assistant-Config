@@ -1,0 +1,96 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret latitude_home
+  longitude: !secret longitude_home
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: !secret elevation_home
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: !secret time_zone
+
+# Show links to resources in log and frontend
+#introduction:
+
+# Enables the frontend
+frontend:
+
+http:
+  # Uncomment this to add a password (recommended!)
+  api_password: !secret http_password
+  ssl_certificate: !secret ssl_cert_path
+  ssl_key: !secret ssl_key_path
+  # Uncomment this if you are using SSL or running in Docker etc
+  base_url: !secret base_dns
+
+# Checks for available updates
+updater:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Text to speech
+tts:
+  platform: google
+
+#WeMo
+wemo:
+  static:   
+    - !secret wemo1_ip
+
+#Media Player
+media_player:
+  - platform: plex
+  - platform: cast
+####does not work for my TV
+#  - platform: samsungtv
+#    host: !secret tv_ip
+#    port: !secret tv_port
+#    mac: !secret tv_mac
+
+#MQTT
+mqtt:
+  broker: !secret mqtt_broker_IP
+  port: !secret mqtt_port
+  client_id: home-assistant-1
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+#Thermostat
+ecobee:
+  api_key: !secret ecobee_api_key
+
+#Notify
+notify:
+  - name: ecobee
+    platform: ecobee
+  - name: !secret notify_name
+    platform: html5
+    gcm_api_key: !secret vic_gcm_api_key
+    gcm_sender_id: !secret vic_gcm_sender_id
+#Verify google with HTML tag
+#/srv/homeassistant/homeassistant_venv/lib/python3.4/site-packages/homeassistant/components/frontend/templates
+
+# Include Files
+device_tracker: !include device_tracker/device_tracker.yaml
+zone: !include_dir_list zones/
+group: !include groups/groups.yaml
+input_boolean: !include misc/input_boolean.yaml
+
+# Include Merge Files
+automation: !include_dir_merge_list automations
+sensor: !include_dir_merge_list sensors

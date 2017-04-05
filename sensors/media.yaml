@@ -1,0 +1,6 @@
+- platform: plex
+  host: !secret plex_ip
+  name: !secret plex_name
+  username: !secret plex_username
+  password: !secret plex_password
+  server: !secret plex_server

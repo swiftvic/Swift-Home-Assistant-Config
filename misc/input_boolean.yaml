@@ -1,0 +1,4 @@
+notify_test:
+  name: test notify
+  initial: off
+  icon: mdi:message-alert

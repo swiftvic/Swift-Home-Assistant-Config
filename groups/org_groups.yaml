@@ -1,0 +1,71 @@
+#Tab Groups
+  default_view:
+    view: yes
+    entities:
+      - group.kitchen
+      - group.climate
+      - group.living_room
+      - group.master_bedroom
+      - group.guest_room
+      - group.dining_room
+      - group.family_card
+  kitchen:
+    name: Kitchen
+    entities:
+      - switch.wemo_kitchen
+  climate:
+    name: climate
+    view: yes
+    entities:
+      - sensor.living_room_temperature
+      - sensor.dining_room_temperature
+      - sensor.king__queen_suite_temperature
+      - binary_sensor.king__queen_suite_occupancy
+      - group.kitchen
+  living_room:
+    name: Living Room
+    entities:
+      - binary_sensor.living_room_occupancy
+      - sensor.living_room_temperature
+#      - media_player.samsung_tv_remote
+#      - media_player.samsung_led55_un55h6350
+  master_bedroom:
+    name: Master Bedroom
+    entities:
+      - binary_sensor.king__queen_suite_occupancy
+      - sensor.king__queen_suite_temperature
+      - media_player.master_bedroom
+      - media_player.plex_web_chrome
+  guest_room:
+    name: Guest Room
+    entities:
+      - binary_sensor.guest_room_occupancy
+      - sensor.guest_room_temperature
+  dining_room:
+    name: Dining Room
+    entities:
+      - binary_sensor.dining_room_occupancy
+      - sensor.dining_room_temperature
+      - climate.dining_room
+      - sensor.dining_room_humidity
+      - input_boolean.dining_room_away
+  family_card:
+    name: Family
+    entities:
+#      - device_tracker.agness6
+#      - device_tracker.victorop3
+      - group.victor_card
+      - sensor.victors_op3_battery
+      - group.agnes_card
+  victor_card:
+    name: Victor
+    view: false
+    entities:
+      - device_tracker.victorop3
+      - device_tracker.vauyeung_vicop3
+  agnes_card:
+    name: Agnes
+    view: false
+    entities:
+      - device_tracker.agness6
+      - media_player.galaxy_s6

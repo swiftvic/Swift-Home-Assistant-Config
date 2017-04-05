@@ -1,0 +1,131 @@
+#Tab Groups
+
+### CARDS ###
+
+default_view:
+  view: yes
+  entities:
+    - group.ecobee_card
+    - group.kitchen_card
+    - group.living_room_card
+    - group.master_bedroom_card
+    - group.guest_room_card
+    - group.dining_room_card
+    - group.family_card
+    - group.testing_card
+
+family_card:
+  name: Family
+  entities:
+#    - device_tracker.agness6
+#    - device_tracker.victorop3
+    - group.victor_card
+    - sensor.victors_op3_battery
+    - group.agnes_card
+
+victor_card:
+  name: Victor
+  view: false
+  entities:
+    - device_tracker.victorop3
+    - device_tracker.vauyeung_vicop3
+
+agnes_card:
+  name: Agnes
+  view: false
+  entities:
+    - device_tracker.agness6
+#    - media_player.galaxy_s6
+
+ecobee_card:
+  name: Ecobee (Thermostat)
+  entities:
+    - climate.ecobee
+    - sensor.ecobee_humidity
+
+kitchen_card:
+  name: Kitchen
+  entities:
+    - switch.wemo_kitchen
+
+living_room_card:
+  name: Living Room
+  entities:
+    - binary_sensor.living_room_occupancy
+    - sensor.living_room_temperature
+#    - media_player.samsung_tv_remote
+#    - media_player.samsung_led55_un55h6350
+
+dining_room_card:
+  name: Dining Room
+  entities:
+    - binary_sensor.ecobee_occupancy
+    - sensor.ecobee_temperature
+#    - input_boolean.ecobee_away
+
+master_bedroom_card:
+  name: Master Bedroom
+  entities:
+    - binary_sensor.master_bedroom_occupancy
+    - sensor.master_bedroom_temperature
+    - media_player.master_bedroom
+
+guest_room_card:
+  name: Guest Room
+  entities:
+    - binary_sensor.guest_room_occupancy
+    - sensor.guest_room_temperature
+
+media_card:
+  name: Media
+  entities:
+    - media_player.master_bedroom
+    - media_player.plex_web_chrome
+    - sensor.blackbox
+    - media_player.galaxy_s6
+
+testing_card:
+  name: Test Only
+  entities:
+      - input_boolean.notify_test
+
+automations_card:
+  name: Automations
+  entities:
+      - automation.turn_on_wemo
+      - automation.turn_off_wemo
+      - automation.home_set_ecobee_to_home
+      - automation.not_home_set_ecobee_away
+
+occupancy_card:
+  name: Occupancy
+  view: false
+  entities:
+    - binary_sensor.master_bedroom_occupancy
+    - binary_sensor.living_room_occupancy
+    - binary_sensor.guest_room_occupancy
+    - binary_sensor.ecobee_occupancy
+
+### Views ###
+
+climate_view:
+  name: Climate
+  view: yes
+  entities:
+    - sensor.living_room_temperature
+    - sensor.ecobee_temperature
+    - sensor.master_bedroom_temperature
+    - binary_sensor.master_bedroom_occupancy
+    - group.kitchen_card
+
+media_view:
+  name: Media
+  view: yes
+  entities: 
+    - group.media_card
+
+settings_view:
+  name: Settings
+  view: yes
+  entities:
+    - group.automations_card
