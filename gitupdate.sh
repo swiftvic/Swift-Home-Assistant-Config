@@ -1,4 +1,6 @@
 #!/bin/bash
+#change user to sudo su -s /bin/bash homeassistant
+#then run script
 
 cd /home/homeassistant/.homeassistant
 source /srv/homeassistant/bin/activate
